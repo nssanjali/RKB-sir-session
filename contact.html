@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Contact Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 20px;
+        }
+        .friend {
+            margin-bottom: 10px; /* Space between friend entries */
+        }
+    </style>
+</head>
+<body>
+
+<h1>Friends' Contact Information</h1>
+<div id="friendsList">
+    <!-- Data will be inserted here -->
+</div>
+
+<script>
+// Function to fetch and display JSON data
+function fetchFriends() {
+    fetch('friends.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            const friendsList = document.getElementById('friendsList');
+            data.forEach(friend => {
+                // Create a new div for each friend
+                const friendDiv = document.createElement('div');
+                friendDiv.className = 'friend';
+                friendDiv.textContent = `${friend.name}: ${friend.phone}`; // Format as "Name: Phone"
+                friendsList.appendChild(friendDiv); // Add to the list
+            });
+        })
+        .catch(error => console.error('There was a problem with the fetch operation:', error));
+}
+
+// Call the function to fetch and display friends
+fetchFriends();
+</script>
+
+</body>
+</html>

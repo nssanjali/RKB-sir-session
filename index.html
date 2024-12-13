@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dubai View</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevents scrollbars from appearing */
+            background-image: url('https://s1.picswalls.com/wallpapers/2014/08/01/dubai-city-wallpaper-hd_010530628_138.jpg'); /* BDubai background image */
+            background-size: cover; /* Cover the entire viewport */
+            background-position: center; /* Center the background image */
+        }
+
+        /* Glowing text effect */
+        .glow {
+            font-size: 80px; /* Adjust font size as needed */
+            color: white; /* Text color */
+            text-align: center; /* Center the text */
+            animation: glow 1.5s ease-in-out infinite alternate; /* Animation for glowing effect */
+            text-shadow: 
+                0 0 5px hsl(0, 35%, 40%), 
+                0 0 10px hsl(0, 35%, 40%), 
+                0 0 20px hsl(0, 35%, 40%), 
+                0 0 30px hsl(0, 35%, 40%), 
+                0 0 40px hsl(0, 35%, 40%); /* Initial text shadow */
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 
+                    0 0 5px hsl(0, 35%, 40%), 
+                    0 0 10px hsl(0, 35%, 40%),
+                    0 0 20px hsl(0, 35%, 40%), 
+                    0 0 30px hsl(0, 35%, 40%),
+                    0 0 40px hsl(0, 35%, 40%);
+            }
+            to {
+                text-shadow: 
+                    0 0 5px hsl(0, 35%, 40%), 
+                    0 0 10px hsl(0, 35%, 40%),
+                    0 0 20px hsl(0, 35%, 40%), 
+                    0 0 30px hsl(0, 35%, 40%),
+                    0 0 40px hsl(0, 35%, 40%);
+            }
+        }
+
+        /* Smoke effect using thin lines */
+        .fog {
+            position: absolute;
+            width: calc(100% + 50px); /* Full width plus some extra for animation */
+            height: calc(100% + 50px); /* Full height plus some extra for animation */
+            pointer-events: none; /* Allow clicks to pass through */
+        }
+
+        .fog-line {
+            position: absolute;
+            background-color: rgba(255,255,255,0.2); /* White color with transparency */
+        }
+
+        @keyframes moveFog {
+            from {
+                transform: translateY(-100vh); /* Start off-screen at the top */
+                opacity: .1; /* More visible at start */
+            }
+            to {
+                transform: translateY(100vh); /* Move off-screen at the bottom */
+                opacity: .1; /* Keep opacity constant for haze effect */
+            }
+        }
+
+        /* Navigation styles */
+        .nav {
+            position: absolute;
+            top:20px;
+            right:20px;
+        }
+        
+        .nav a {
+            margin-left:15px;
+            color:white;
+            text-decoration:none;
+        }
+        
+        .content {
+            color:white;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <div class="nav">
+        <a href="about.html" onclick="loadContent('about.html')">About</a>
+        <a href="contact.html" onclick="loadContent('contact.html')">Contact</a>
+    </div>
+
+    <script>
+        // Function to render hazy fog effects
+        function renderFog() {
+            const fogLayers = [];
+            for (let i = 0; i <10; i++) { // Create multiple lines
+                const width = Math.random() * (100 / (Math.random() * (15) +1)) + '%'; // Random width
+                const height = Math.random() * (100 / (3)) + '%'; // Random height
+                const top = Math.random() * (100) + '%'; // Random vertical position
+                const left = Math.random() * (100) + '%'; // Random horizontal position
+                const opacity = Math.random() * (1) + .1; // Random opacity
+
+                fogLayers.push(`
+                    <div class="fog-line" style="
+                        width: ${width}; 
+                        height: ${height}; 
+                        top: ${top}; 
+                        left: ${left}; 
+                        opacity: ${opacity}; 
+                        animation-duration:${Math.random() * (30 -15) +15}s; 
+                        animation-name: moveFog;">
+                    </div>`);
+            }
+            return fogLayers.join('');
+        }
+
+        // Function to render the home page with glowing text and fog effects
+        function renderHome() {
+            return `
+                <div class="flex flex-col items-center justify-center h-screen relative">
+                    <h1 class="glow">DUBAI</h1>
+
+                    <!-- Render Fog Effects -->
+                    
+                </div>`;
+        }
+
+        // Function to load content dynamically using AJAX
+        function loadContent(page) {
+            fetch(page)
+                .then(response => response.text())
+                .then(data => {
+                    const rootElement = document.getElementById('root');
+                    rootElement.innerHTML = data;
+                })
+                .catch(error => console.error('Error loading content:', error));
+        }
+
+        // Function to set the current page
+        let currentPage = 'home';
+        
+        function setPage(page) {
+            currentPage = page;
+            render();
+        }
+
+        // Function to render the appropriate page based on currentPage
+        function render() {
+            const rootElement = document.getElementById('root');
+            if (currentPage === 'home') {
+                rootElement.innerHTML = renderHome();
+            }
+        }
+
+        // Initial render
+        render();
+    </script>
+
+</body>
+</html>

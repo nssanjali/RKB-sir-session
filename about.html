@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Fill Example</title>
+    <style>
+        body {
+            background-color: black; /* Set background color to black */
+            color: white; /* Set text color to white for contrast */
+            font-family: Arial, sans-serif; /* Set a default font */
+            margin: 0;
+            height: 100vh; /* Set height to full viewport height */
+        }
+
+        .container {
+            display: flex; /* Use Flexbox for layout */
+            height: 100%; /* Make container fill the full height of the body */
+        }
+
+        .column {
+            flex: 1; /* Each column takes equal space */
+            padding: 10px;
+        }
+
+        .column-1 {
+            flex: 0 0 50%; /* First column takes 50% of the width */
+            display: flex;
+            flex-direction: column; /* Stack children vertically */
+        }
+
+        .column-2 {
+            flex: 0 0 50%; /* Second column takes 50% of the width */
+            display: flex;
+            flex-direction: column; /* Stack rows vertically */
+        }
+
+        .row {
+            flex: 1; /* Each row takes equal space within the second column */
+            display: flex; /* Use Flexbox for images */
+            justify-content: center; /* Center images horizontally */
+            align-items: center; /* Center images vertically */
+            margin-bottom: 10px; /* Space between rows */
+        }
+
+        .image {
+            width: 100%; /* Make images responsive */
+            height: 100%; /* Fill the height of the row */
+            object-fit: cover; /* Cover the entire area without distortion */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="column column-1">
+        <h1>Welcome to Dubai</h1>
+        <p>Dubai, a city in the United Arab Emirates, is known for its futuristic architecture, luxury shopping, and vibrant nightlife. Home to the iconic Burj Khalifa, the tallest building in the world, Dubai is a blend of modernity and tradition. From sprawling deserts to artificial islands, Dubai offers a unique experience for travelers.</p>
+        <p>The city's highlights include the Burj Al Arab, the Palm Jumeirah, and the Dubai Mall, one of the largest shopping centers in the world. Visitors can enjoy desert safaris, luxury cruises, and fine dining at world-class restaurants. Dubai is a global hub for innovation and tourism, making it a must-visit destination.</p>
+    </div>
+    
+    <div class="column column-2">
+        <div class="row">
+            <img src="https://hdqwalls.com/wallpapers/burj-khalifa-dubai-night-hn.jpg" alt="Burj Khalifa" class="image">
+        </div>
+        <div class="row">
+            <img src="https://images2.alphacoders.com/456/456545.jpg" alt="Burj Al Arab" class="image">
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
